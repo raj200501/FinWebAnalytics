@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="TestHelpers.fs" />
+    <Compile Include="ParsingTests.fs" />
+    <Compile Include="AnalyticsTests.fs" />
+    <Compile Include="DataAnalysisTests.fs" />
+    <Compile Include="PredictiveModelTests.fs" />
+    <Compile Include="IntegrationTests.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Expecto" Version="9.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/FinWebAnalytics/FinWebAnalytics.fsproj" />
+  </ItemGroup>
+</Project>

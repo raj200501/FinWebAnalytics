@@ -1,0 +1,9 @@
+[project]
+name = "finwebanalytics"
+version = "1.0.0"
+description = "Lightweight financial analytics web service."
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.scripts]
+finwebanalytics = "finwebanalytics.__main__:main"

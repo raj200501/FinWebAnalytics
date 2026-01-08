@@ -1,32 +1,29 @@
-open System
+namespace FinWebAnalytics
+
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Giraffe
-open WebApp
 
-let webApp = choose [
-    route "/" >=> htmlView Views.index
-    route "/analyze" >=> POST >=> bindForm<DataAnalysis.Request> DataAnalysis.analyze
-    route "/predict" >=> POST >=> bindForm<PredictiveModel.Request> PredictiveModel.predict
-]
+module Program =
+    let configureApp (app : IApplicationBuilder) =
+        app.UseStaticFiles() |> ignore
+        app.UseGiraffe WebApp.webApp
 
-let configureApp (app : IApplicationBuilder) =
-    app.UseGiraffe webApp
+    let configureServices (services : IServiceCollection) =
+        services.AddGiraffe() |> ignore
 
-let configureServices (services : IServiceCollection) =
-    services.AddGiraffe() |> ignore
-
-[<EntryPoint>]
-let main _ =
-    Host.CreateDefaultBuilder()
-        .ConfigureWebHostDefaults(fun webHostBuilder ->
-            webHostBuilder
-                .Configure(configureApp)
-                .ConfigureServices(configureServices)
-                .UseUrls("http://localhost:5000")
-                |> ignore)
-        .Build()
-        .Run()
-    0
+    [<EntryPoint>]
+    let main _ =
+        let url = Config.baseUrl()
+        Host.CreateDefaultBuilder()
+            .ConfigureWebHostDefaults(fun webHostBuilder ->
+                webHostBuilder
+                    .Configure(configureApp)
+                    .ConfigureServices(configureServices)
+                    .UseUrls(url)
+                    |> ignore)
+            .Build()
+            .Run()
+        0

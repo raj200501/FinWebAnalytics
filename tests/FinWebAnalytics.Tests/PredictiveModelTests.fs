@@ -1,13 +1,16 @@
-module FinWebAnalytics.Tests.PredictiveModelTests
+namespace FinWebAnalytics.Tests
 
 open Expecto
-open PredictiveModel
+open FinWebAnalytics
 
-[<Tests>]
-let tests =
-    testList "PredictiveModel tests" [
-        testCase "Predict data" <| fun _ ->
-            let data = { Feature1 = 1.0f; Feature2 = 2.0f }
-            let prediction = predict data
-            Expect.isTrue (prediction.PredictedValue >= 0.0f) "Predicted value should be non-negative"
-    ]
+module PredictiveModelTests =
+    [<Tests>]
+    let tests =
+        testList "PredictiveModel tests" [
+            testCase "Predict deterministic value" <| fun _ ->
+                let input = { PredictionInput.Feature1 = 5.0; Feature2 = 3.2 }
+                let prediction = Prediction.predict input
+                Expect.isGreaterThan prediction.PredictedValue 0.0 "Predicted value should be positive"
+                Expect.equal prediction.Features.Feature1 5.0 "Feature1 should be echoed"
+                Expect.equal prediction.Features.Feature2 3.2 "Feature2 should be echoed"
+        ]

@@ -1,23 +1,18 @@
-module WebApp
+namespace FinWebAnalytics
 
 open Giraffe
-open Giraffe.ViewEngine
 
-let index =
-    html [] [
-        head [] [
-            title [] [ str "FinWebAnalytics" ]
-            link [ _rel "stylesheet"; _type "text/css"; _href "/Styles.css" ]
-        ]
-        body [] [
-            h1 [] [ str "Welcome to FinWebAnalytics" ]
-            form [ _action "/analyze"; _method "post" ] [
-                input [ _type "text"; _name "data"; _placeholder "Enter financial data" ]
-                button [ _type "submit" ] [ str "Analyze" ]
+module WebApp =
+    let webApp =
+        choose [
+            GET >=> choose [
+                route "/" >=> htmlView Views.index
+                route "/health" >=> text "ok"
             ]
-            form [ _action "/predict"; _method "post" ] [
-                input [ _type "text"; _name "data"; _placeholder "Enter financial data" ]
-                button [ _type "submit" ] [ str "Predict" ]
+            POST >=> choose [
+                route "/analyze" >=> DataAnalysis.analyzeText
+                route "/api/analyze" >=> DataAnalysis.analyzeJson
+                route "/predict" >=> PredictiveModel.predictText
+                route "/api/predict" >=> PredictiveModel.predictJson
             ]
         ]
-    ]
