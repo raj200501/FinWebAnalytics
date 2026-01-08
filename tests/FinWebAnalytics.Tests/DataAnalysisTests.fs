@@ -1,16 +1,18 @@
-module FinWebAnalytics.Tests.DataAnalysisTests
+namespace FinWebAnalytics.Tests
 
 open Expecto
-open DataAnalysis
+open FinWebAnalytics
 
-[<Tests>]
-let tests =
-    testList "DataAnalysis tests" [
-        testCase "Analyze data" <| fun _ ->
-            let data = [| 1.0; 2.0; 3.0 |]
-            let mean = data |> Array.average
-            let variance = data |> Array.averageBy (fun x -> (x - mean) ** 2.0)
-            let stddev = Math.Sqrt(variance)
-            Expect.equal mean 2.0 "Mean should be 2.0"
-            Expect.equal stddev 0.816496580927726 "Standard deviation should be 0.816496580927726"
-    ]
+module DataAnalysisTests =
+    [<Tests>]
+    let tests =
+        testList "DataAnalysis tests" [
+            testCase "Analyze data summary" <| fun _ ->
+                let data = [| 1.0; 2.0; 3.0 |]
+                match Analytics.analyze data with
+                | Error err -> failtestf "Unexpected error: %s" err
+                | Ok analysis ->
+                    Expect.equal analysis.Summary.Count 3 "Count should be 3"
+                    Expect.equal analysis.Summary.Mean 2.0 "Mean should be 2.0"
+                    Expect.equal (System.Math.Round(analysis.Summary.StandardDeviation, 6)) 0.816497 "Standard deviation should match"
+        ]

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>false</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Domain.fs" />
+    <Compile Include="Config.fs" />
+    <Compile Include="Analytics.fs" />
+    <Compile Include="Parsing.fs" />
+    <Compile Include="DataAnalysis.fs" />
+    <Compile Include="Prediction.fs" />
+    <Compile Include="PredictiveModel.fs" />
+    <Compile Include="Views.fs" />
+    <Compile Include="WebApp.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Giraffe" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot/**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

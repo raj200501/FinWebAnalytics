@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinWebAnalytics</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>FinWebAnalytics</h1>
+    <p>Run quick financial analysis and predictive scoring with lightweight analytics.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Analyze data</h2>
+      <p>Enter comma-separated numeric values to compute summary statistics.</p>
+      <form action="/analyze" method="post">
+        <div class="form-row">
+          <label for="analysis-data">CSV values</label>
+          <input id="analysis-data" name="data" type="text" placeholder="120.5, 121.1, 119.7, 122.0" />
+        </div>
+        <button type="submit">Analyze</button>
+      </form>
+    </section>
+    <section>
+      <h2>Predict</h2>
+      <p>Provide two features to generate a deterministic predictive score.</p>
+      <form action="/predict" method="post">
+        <div class="form-row">
+          <label for="predict-data">Features</label>
+          <input id="predict-data" name="data" type="text" placeholder="5.0, 3.2" />
+        </div>
+        <button type="submit">Predict</button>
+      </form>
+    </section>
+    <section>
+      <h2>API endpoints</h2>
+      <ul>
+        <li>POST /analyze (text response)</li>
+        <li>POST /api/analyze (JSON response)</li>
+        <li>POST /predict (text response)</li>
+        <li>POST /api/predict (JSON response)</li>
+        <li>GET /health</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <p>FinWebAnalytics - demo analytics pipeline.</p>
+  </footer>
+</body>
+</html>
